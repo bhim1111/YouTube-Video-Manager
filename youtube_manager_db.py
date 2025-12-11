@@ -1,10 +1,10 @@
 import sqlite3
 
-# Create database connection
+
 conn = sqlite3.connect('youtube_videos.db')
 cursor = conn.cursor()
 
-# Create table
+
 cursor.execute(''' 
     CREATE TABLE IF NOT EXISTS videos(
         id INTEGER PRIMARY KEY,
@@ -13,28 +13,28 @@ cursor.execute('''
     )
 ''')
 
-# List videos
+
 def list_videos():
     cursor.execute("SELECT * FROM videos")
     for row in cursor.fetchall():
         print(row)
 
-# Add video
+
 def add_video(name, time):
     cursor.execute("INSERT INTO videos(name, time) VALUES(?, ?)", (name, time))
     conn.commit()
 
-# Update video
+
 def update_video(video_id, new_name, new_time):
     cursor.execute("UPDATE videos SET name = ?, time = ? WHERE id = ?", (new_name, new_time, video_id))
     conn.commit()
 
-# Delete video
+
 def delete_video(video_id):
     cursor.execute("DELETE FROM videos WHERE id = ?", (video_id,))
     conn.commit()
 
-# Main app
+
 def main():
     while True:
         print("\nYouTube Manager App with DB")
